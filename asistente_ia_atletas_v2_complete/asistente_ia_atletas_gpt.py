@@ -1,4 +1,9 @@
 import streamlit as st
+
+# 🧩 Primero SIEMPRE debe ir set_page_config
+st.set_page_config(page_title="Asistente IA para Atletas", page_icon="🤖")
+
+# Luego puedes mostrar avisos, imports extra, etc.
 import cv2
 import numpy as np
 from PIL import Image
@@ -13,7 +18,6 @@ except Exception:
     st.warning("⚠️ Mediapipe no está disponible en este entorno (Python 3.13). "
                "La app se ejecutará en modo limitado sin análisis corporal.")
 
-st.set_page_config(page_title="Asistente IA para Atletas", page_icon="🤖")
 st.title("🤖 Asistente IA para Atletas en Recuperación y Rehabilitación")
 st.write("""
 Sube una foto (opcional) y conversa con tu entrenador IA sobre tu recuperación,
@@ -34,7 +38,7 @@ if uploaded_file:
 
     if HAS_MEDIAPIPE:
         st.info("Procesando pose corporal ...")
-        # código original de mediapipe aquí
+        # Aquí puedes restaurar el análisis corporal más adelante
     else:
         st.info("Modo limitado — no se puede analizar la postura.")
         st.write("Puedes continuar con el chat IA normalmente.")
