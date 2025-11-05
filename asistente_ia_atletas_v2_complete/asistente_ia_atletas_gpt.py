@@ -19,6 +19,10 @@ except Exception:
 # 🔹 4. Interfaz de la app
 st.title("🤖 Asistente IA para Atletas en Recuperación y Rehabilitación")
 
+# if not HAS_MEDIAPIPE:
+#     st.warning("⚠️ Mediapipe no está disponible en este entorno (Python 3.13). "
+#                "La app se ejecutará en modo limitado sin análisis corporal.")
+
 if not HAS_MEDIAPIPE:
     st.warning("⚠️ Mediapipe no está disponible en este entorno (Python 3.13). "
                "La app se ejecutará en modo limitado sin análisis corporal.")
