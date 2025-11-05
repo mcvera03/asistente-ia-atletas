@@ -1,35 +1,41 @@
 import streamlit as st
 
-# 🧩 Primero SIEMPRE debe ir set_page_config
+# 🔹 1. Esta línea debe ser literalmente la primera instrucción Streamlit
 st.set_page_config(page_title="Asistente IA para Atletas", page_icon="🤖")
 
-# Luego puedes mostrar avisos, imports extra, etc.
+# 🔹 2. Imports normales
 import cv2
 import numpy as np
 from PIL import Image
 import openai
 
-# intentar cargar mediapipe
+# 🔹 3. Verificar si mediapipe está disponible (sin usar Streamlit todavía)
+HAS_MEDIAPIPE = True
 try:
     import mediapipe as mp
-    HAS_MEDIAPIPE = True
 except Exception:
     HAS_MEDIAPIPE = False
+
+# 🔹 4. Interfaz de la app
+st.title("🤖 Asistente IA para Atletas en Recuperación y Rehabilitación")
+
+if not HAS_MEDIAPIPE:
     st.warning("⚠️ Mediapipe no está disponible en este entorno (Python 3.13). "
                "La app se ejecutará en modo limitado sin análisis corporal.")
 
-st.title("🤖 Asistente IA para Atletas en Recuperación y Rehabilitación")
 st.write("""
 Sube una foto (opcional) y conversa con tu entrenador IA sobre tu recuperación,
 rutinas y prevención de lesiones.
 """)
 
+# 🔹 5. Clave API
 if "OPENAI_API_KEY" not in st.secrets:
     st.error("Agrega tu `OPENAI_API_KEY` en Settings → Secrets.")
     st.stop()
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
+# 🔹 6. Subida de imagen
 uploaded_file = st.file_uploader("📸 Sube una foto (opcional)", type=["jpg","jpeg","png"])
 
 if uploaded_file:
@@ -38,11 +44,12 @@ if uploaded_file:
 
     if HAS_MEDIAPIPE:
         st.info("Procesando pose corporal ...")
-        # Aquí puedes restaurar el análisis corporal más adelante
+        # Aquí iría el análisis de pose con mediapipe
     else:
         st.info("Modo limitado — no se puede analizar la postura.")
         st.write("Puedes continuar con el chat IA normalmente.")
 
+# 🔹 7. Chat
 st.subheader("💬 Chat con tu Asistente IA")
 
 if "mensajes" not in st.session_state:
